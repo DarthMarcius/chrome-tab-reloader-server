@@ -11,7 +11,7 @@ class tabReloader {
 
         this.init();
 
-        return this.refreshTab;
+        return this.refreshTab.bind(this);
     }
 
     init() {
