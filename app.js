@@ -1,12 +1,12 @@
 "use strict";
 
-var WebSocketServer = require("websocketserver");
+var WebSocketServer = require('websocketserver');
 
 class tabReloader {
     constructor(options) {
         this.options = options;
         this.server = false;
-        this.pluginName = "Tab Reloader";
+        this.pluginName = 'Tab Reloader';
         this.isConnected = false;
 
         this.init();
@@ -16,13 +16,13 @@ class tabReloader {
 
     init() {
         var port = this.options ? this.options.port : false;
-        this.server = new WebSocketServer("all", port || 9000);
+        this.server = new WebSocketServer('all', port || 9000);
         this.initListeners();
     }
 
     refreshTab(uploadedFiles) {
         if (this.isConnected) {
-            this.server.sendMessage("all", uploadedFiles || 'reload');
+            this.server.sendMessage('all', this.server.packageMessage('all', uploadedFiles || 'reload'));
         } else {
             console.log('Tab can not be reloaded since browser ' + this.pluginName + ' plugin is not connected to server yet.');
         }
