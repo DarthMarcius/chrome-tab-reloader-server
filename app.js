@@ -15,7 +15,8 @@ class tabReloader {
     }
 
     init() {
-        this.server = new WebSocketServer("all", 9000);
+        var port = options ? options.port : false;
+        this.server = new WebSocketServer("all", port || 9000);
         this.initListeners();
     }
 
@@ -54,4 +55,4 @@ class tabReloader {
     }
 };
 
-module.exports = new tabReloader();
+module.exports = tabReloader;
