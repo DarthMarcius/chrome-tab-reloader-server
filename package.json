@@ -1,6 +1,6 @@
 {
   "name": "chrome-tab-reloader",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Chrome active tab reloader server",
   "main": "app.js",
   "scripts": {
