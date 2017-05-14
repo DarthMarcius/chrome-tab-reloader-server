@@ -22,7 +22,7 @@ class tabReloader {
 
     refreshTab(uploadedFiles) {
         if (this.isConnected) {
-            this.server.sendMessage('all', this.server.packageMessage('all', uploadedFiles || 'reload'));
+            this.server.sendMessage('all', this.server.packageMessage(130, uploadedFiles || 'reload'));
         } else {
             console.log('Tab can not be reloaded since browser ' + this.pluginName + ' plugin is not connected to server yet.');
         }
