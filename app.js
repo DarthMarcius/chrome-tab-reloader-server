@@ -54,4 +54,4 @@ class tabReloader {
     }
 };
 
-module.exports = tabReloader;
+module.exports = new tabReloader();
