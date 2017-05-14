@@ -15,7 +15,7 @@ class tabReloader {
     }
 
     init() {
-        var port = options ? this.options.port : false;
+        var port = this.options ? this.options.port : false;
         this.server = new WebSocketServer("all", port || 9000);
         this.initListeners();
     }
