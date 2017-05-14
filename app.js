@@ -22,7 +22,6 @@ class tabReloader {
 
     refreshTab(uploadedFiles) {
         if (this.isConnected) {
-            
             if (Array.isArray(uploadedFiles)) {
                 uploadedFiles.forEach(function (el) {
                     this.server.sendMessage('all', el.toString());
