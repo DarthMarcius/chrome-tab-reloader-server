@@ -8,6 +8,8 @@ class tabReloader {
         this.isConnected = false;
 
         this.init();
+
+        return this.refreshTab;
     }
 
     init() {
