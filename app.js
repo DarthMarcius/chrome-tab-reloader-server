@@ -1,3 +1,5 @@
+"use strict";
+
 var WebSocketServer = require("websocketserver");
 
 class tabReloader {
