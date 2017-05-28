@@ -45,7 +45,7 @@ class tabReloader {
 
     initListeners() {
         this.websocket.on('message', (message) => {
-            console.log('received: %s', message);
+            //console.log('received: %s', message);
             this.websocket.send('1');
         });
 
