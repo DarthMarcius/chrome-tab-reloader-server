@@ -50,7 +50,7 @@ class tabReloader {
             this.websocket.send('1');
         });
 
-        this.server.on('close', () => {
+        this.websocket.on('close', () => {
             this.isConnected = false;
             console.log(this.pluginName + ' connection is closed');
         });
