@@ -1,6 +1,7 @@
 "use strict";
 
-var WebSocketServer = require('websocketserver');
+//var WebSocketServer = require('websocketserver');
+var WebSocketServer = require("nodejs-websocket")
 
 class tabReloader {
     constructor(options) {
@@ -8,6 +9,7 @@ class tabReloader {
         this.server = false;
         this.pluginName = 'Tab Reloader';
         this.isConnected = false;
+        this.connection = false;
 
         this.init();
 
@@ -16,18 +18,22 @@ class tabReloader {
 
     init() {
         var port = this.options ? this.options.port : false;
-        this.server = new WebSocketServer('all', port || 9000);
-        this.initListeners();
+        this.server = WebSocketServer.createServer((conn) => {
+            console.log('Connection open');
+            this.isConnected = true;
+            this.connection = conn;
+            this.initListeners();
+        }).listen(port || 9000);
     }
 
     refreshTab(uploadedFiles) {
         if (this.isConnected) {
             if (Array.isArray(uploadedFiles)) {
                 uploadedFiles.forEach(function (el) {
-                    this.server.sendMessage('all', el.toString());
+                    this.connection.sendText(el.toString());
                 }.bind(this));
             } else {
-                this.server.sendMessage('all', uploadedFiles ? uploadedFiles.toString() : 'reload');
+                this.connection.sendText(uploadedFiles ? uploadedFiles.toString() : 'reload');
             }
         } else {
             console.log('Tab can not be reloaded since browser ' + this.pluginName + ' plugin is not connected to server yet.');
@@ -35,28 +41,19 @@ class tabReloader {
     }
 
     initListeners() {
-        this.server.on('connection', (id) => {
-            console.log('connection open');
-            this.isConnected = true;
-            this.initSocketListeners();
-        });
+        this.initSocketListeners();
     }
 
     initSocketListeners() {
-        this.server.on('closedconnection', (id) => {
+        conn.on("close", (code, reason) => {
             this.isConnected = false;
             console.log(this.pluginName + ' connection is closed');
         });
 
-        /*this.server.on('message', (data, id) => {
-            var mes = this.server.unmaskMessage(data);
-            var str = this.server.convertToString(mes.message);
-
-            if (str == '1') {
-                // if connection verification is send from client call back telling we recieved it
-                this.server.sendMessage('all', '1');
-            }
-        });*/
+        this.connection.on("text", (str) => {
+            console.log("Received " + str)
+            this.connection.sendText(str.toUpperCase()+"!!!")
+        });
     }
 };
 
