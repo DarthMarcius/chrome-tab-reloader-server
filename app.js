@@ -45,12 +45,12 @@ class tabReloader {
     }
 
     initSocketListeners() {
-        conn.on("close", (code, reason) => {
+        this.connection.on("close", (code, reason) => {
             this.isConnected = false;
             console.log(this.pluginName + ' connection is closed');
         });
 
-        this.connection.on("text", (str) => {
+        this.connection.sendText.on("text", (str) => {
             console.log("Received " + str)
             this.connection.sendText(str.toUpperCase()+"!!!")
         });
