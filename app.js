@@ -23,7 +23,7 @@ class tabReloader {
             this.isConnected = true;
             this.connection = conn;
             this.initListeners();
-        }).listen(port || 9000);
+        }).listen(port || 8001);
     }
 
     refreshTab(uploadedFiles) {
