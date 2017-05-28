@@ -19,7 +19,7 @@ class tabReloader {
     init() {
         var port = this.options ? this.options.port : false;
         this.server = WebSocketServer.createServer((conn) => {
-            console.log('Connection open');
+            console.log('Connection open on port' + port || 8001);
             this.isConnected = true;
             this.connection = conn;
             this.initListeners();
