@@ -50,10 +50,11 @@ class tabReloader {
             console.log(this.pluginName + ' connection is closed');
         });
 
-        this.connection.sendText.on("text", (str) => {
+        /*this.connection.on("text", (str) => {
             console.log("Received " + str)
+
             this.connection.sendText(str.toUpperCase()+"!!!")
-        });
+        });*/
     }
 };
 
