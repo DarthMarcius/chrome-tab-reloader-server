@@ -39,25 +39,24 @@ class tabReloader {
             console.log('connection open');
             this.isConnected = true;
             this.initSocketListeners();
-            //this.server.sendMessage("one", "Welcome to the server!", id);
         });
     }
 
     initSocketListeners() {
-        /*this.socket.onmessage =  (ev) => {
-            console.log(ev.data);
-        };*/
-
         this.server.on('closedconnection', (id) => {
             this.isConnected = false;
             console.log(this.pluginName + ' connection is closed');
         });
 
-        /*this.server.on('message', (data, id) => {
+        this.server.on('message', (data, id) => {
             var mes = this.server.unmaskMessage(data);
             var str = this.server.convertToString(mes.message);
-            console.log(str);
-        });*/
+
+            if (str == '1') {
+                // if connection verification is send from client call back telling we recieved it
+                this.server.sendMessage('all', '1');
+            }
+        });
     }
 };
 
