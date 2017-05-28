@@ -48,7 +48,7 @@ class tabReloader {
             console.log(this.pluginName + ' connection is closed');
         });
 
-        this.server.on('message', (data, id) => {
+        /*this.server.on('message', (data, id) => {
             var mes = this.server.unmaskMessage(data);
             var str = this.server.convertToString(mes.message);
 
@@ -56,7 +56,7 @@ class tabReloader {
                 // if connection verification is send from client call back telling we recieved it
                 this.server.sendMessage('all', '1');
             }
-        });
+        });*/
     }
 };
 
