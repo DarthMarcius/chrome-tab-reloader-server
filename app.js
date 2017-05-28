@@ -23,6 +23,7 @@ class tabReloader {
 
         this.server.on('connection', (websocket) => {
             this.websocket = websocket;
+            this.isConnected= true;
 
             this.initListeners();
         });
