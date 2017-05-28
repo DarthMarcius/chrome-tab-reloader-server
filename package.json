@@ -1,6 +1,6 @@
 {
   "name": "chrome-tab-reloader",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "description": "Chrome active tab reloader server",
   "main": "app.js",
   "scripts": {
@@ -26,6 +26,6 @@
   },
   "homepage": "https://github.com/DarthMarcius/ChromeTabReloader#readme",
   "dependencies": {
-    "websocket": "^1.0.24"
+    "ws": "^3.0.0"
   }
 }

@@ -2,8 +2,7 @@
 
 //var WebSocketServer = require('websocketserver');
 //var WebSocketServer = require("nodejs-websocket")
-var WebSocketServer = require('websocket').server,
-    http = require('http');
+var WebSocket = require('ws');
 
 class tabReloader {
     constructor(options) {
@@ -20,47 +19,23 @@ class tabReloader {
 
     init() {
         var port = this.options ? this.options.port : false;
-        this.server = http.createServer(function(request, response) {
-            console.log((new Date()) + ' Received request for ' + request.url);
-            response.writeHead(404);
-            response.end();
-        }).listen(port || 8001, function() {
-            console.log((new Date()) + (port || 8001));
+        this.server = new WebSocket.Server({port: port || 8001});
+
+        this.server.on('connection', (websocket) => {
+            this.websocket = websocket;
+
+            this.initListeners();
         });
-
-        this.wsServer = new WebSocketServer({
-            httpServer: this.server,
-            autoAcceptConnections: false
-        });
-
-        this.wsServer.on('request', (request) => {
-            if (!this.originIsAllowed(request.origin)) {
-                // Make sure we only accept requests from an allowed origin
-                request.reject();
-                console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
-                return;
-            }
-            
-            this.connection = request.accept('echo-protocol', request.origin);
-            console.log((new Date()) + ' Connection accepted.');
-
-            this.initListeners()
-        });
-    }
-
-    originIsAllowed(origin) {
-        // put logic here to detect whether the specified origin is allowed.
-        return true;
     }
 
     refreshTab(uploadedFiles) {
         if (this.isConnected) {
             if (Array.isArray(uploadedFiles)) {
                 uploadedFiles.forEach(function (el) {
-                    this.connection.sendUTF(el.toString());
+                    this.websocket.send(el.toString());
                 }.bind(this));
             } else {
-                this.connection.sendUTF(uploadedFiles ? uploadedFiles.toString() : 'reload');
+                this.websocket.send(uploadedFiles ? uploadedFiles.toString() : 'reload');
             }
         } else {
             console.log('Tab can not be reloaded since browser ' + this.pluginName + ' plugin is not connected to server yet.');
@@ -68,17 +43,12 @@ class tabReloader {
     }
 
     initListeners() {
-        this.connection.on('message', function(message) {
-            if (message.type === 'utf8') {
-                console.log('Received Message: ' + message.utf8Data);
-                this.connection.sendUTF(message.utf8Data);
-            } else if (message.type === 'binary') {
-                console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
-                this.connection.sendBytes(message.binaryData);
-            }
+        this.websocket.on('message', (message) => {
+            console.log('received: %s', message);
+            this.websocket.send('1');
         });
 
-        this.connection.on('close', function(reasonCode, description) {
+        this.server.on('close', () => {
             this.isConnected = false;
             console.log(this.pluginName + ' connection is closed');
         });
