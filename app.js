@@ -28,12 +28,12 @@ class tabReloader {
             console.log((new Date()) + (port || 8001));
         });
 
-        wsServer = new WebSocketServer({
-            httpServer: server,
+        this.wsServer = new WebSocketServer({
+            httpServer: this.server,
             autoAcceptConnections: false
         });
 
-        wsServer.on('request', (request) => {
+        this.wsServer.on('request', (request) => {
             if (!this.originIsAllowed(request.origin)) {
                 // Make sure we only accept requests from an allowed origin
                 request.reject();
