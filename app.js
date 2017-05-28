@@ -22,6 +22,7 @@ class tabReloader {
         this.server = new WebSocket.Server({port: port || 8001});
 
         this.server.on('connection', (websocket) => {
+            console.log('Connection open');
             this.websocket = websocket;
             this.isConnected= true;
 
