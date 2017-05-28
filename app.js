@@ -46,8 +46,9 @@ class tabReloader {
 
     initListeners() {
         this.websocket.on('message', (message) => {
-            //console.log('received: %s', message);
-            this.websocket.ping('', false, true);
+            if (message == 'ping') {
+                this.websocket.send('pong');
+            }
         });
 
         this.websocket.on('close', () => {
