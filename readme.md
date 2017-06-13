@@ -4,9 +4,8 @@ So if you work in cloud based environment where you can only see the code result
 This module shall help you to reload the Chrome tab once your code is uploaded.**
 
 >It shall work for you if you are using task runner like gulp,
-In gulp you can use Node plugin server side https://www.npmjs.com/package/chrome-tab-reloader
 
->Also you need any other npm tool to pair us with https://www.npmjs.com/package/chrome-tab-reloader which uploads your code to server and gives you callback on this action with filename of a file which has just uploaded to server.
+>Also you need any other npm tool to pair us with `chrome-tab-reloader` which uploads your code to server and gives you callback on this action with filename of a file which has just uploaded to server.
 
 Here is an example of using chromeTabReloader in pair with `dwdav` and `dw-utils` plugins for Demandware platform:
 
