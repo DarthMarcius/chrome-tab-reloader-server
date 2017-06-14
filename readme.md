@@ -59,7 +59,7 @@ gulp.task('watch:server', function() {
 
 Once ```gulp watch:server``` command is on you will have tabReloader npm module waiting for chrome plugin to connect to it.
 
-Once [chromeTabReloader](https://chrome.google.com/webstore/detail/tab-reloader/mnbfmcaflfdkgoaaggbpkhchojeinjpm) is installed in your browser you can click on the green circle icon in your extensions bar, it shall establish conncetion with running npm process.
+Once [chromeTabReloader](https://chrome.google.com/webstore/detail/tab-reloader/mnbfmcaflfdkgoaaggbpkhchojeinjpm) is installed in your browser you can click on the green circle icon in your extensions bar, it shall establish connection with running npm process.
 
 Here is the page from which you can install cromeTabReloader plugin https://chrome.google.com/webstore/detail/tab-reloader/mnbfmcaflfdkgoaaggbpkhchojeinjpm
 
